@@ -1,0 +1,110 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+
+"""
+Copyright 2011 Yaşar Arabacı
+
+
+This file is part of packagequiz.
+packagequiz is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+"""
+
+
+import sys
+from PyQt4 import QtGui,QtCore
+import questionGenerator
+from random import choice
+
+class Game(QtGui.QMainWindow):
+    
+    def __init__(self,parent=None):
+        QtGui.QMainWindow.__init__(self,parent)
+        
+        self.correctAnswer = None
+        self.currQuestionPoints = 0
+        self.totalPoints = 0
+        
+        self.setWindowTitle('Package Quiz!')
+        
+        self.mainWidget = QtGui.QWidget()
+        mainlayout = QtGui.QVBoxLayout()
+        
+        self.buttongroup = QtGui.QGroupBox("asdfasdf",self)
+        self.radio1 = QtGui.QRadioButton("hebele",self.buttongroup)
+        self.radio2 = QtGui.QRadioButton("hebele2",self.buttongroup)
+        self.radio3 = QtGui.QRadioButton("hebele3",self.buttongroup)
+        self.radio4 = QtGui.QRadioButton("hebele4",self.buttongroup)
+        
+        self.radios = [self.radio1,self.radio2,
+                       self.radio3,self.radio4]
+        
+        self.radio1.setChecked(1)
+        
+        vboxlayout = QtGui.QVBoxLayout()
+        vboxlayout.addWidget(self.radio1)
+        vboxlayout.addWidget(self.radio2)
+        vboxlayout.addWidget(self.radio3)
+        vboxlayout.addWidget(self.radio4)
+        self.buttongroup.setLayout(vboxlayout)
+        
+        self.okButton = QtGui.QPushButton("Ok",self)
+        
+        self.connect(self.okButton,QtCore.SIGNAL("clicked()"),self.okClicked)
+        
+        mainlayout.addWidget(self.buttongroup)
+        mainlayout.addWidget(self.okButton)
+        self.mainWidget.setLayout(mainlayout)
+        self.setCentralWidget(self.mainWidget)
+        self.newQuestion()
+        
+    def newQuestion(self):
+        
+        q = questionGenerator.getRandomQuestion(numWrongAnswers = 3)
+        self.currQuestionPoints = q[3]
+        self.buttongroup.setTitle(str(q[0]))
+        correct_one = choice(self.radios)
+        self.correctAnswer = correct_one
+        correct_one.setText(str(q[1]))
+        
+        for radio in self.radios:
+            if radio is not correct_one:
+                radio.setText(str(q[2].pop()))
+    def restart(self):
+        self.curQuestionNum = 0
+        self.correctAnswer = ""
+        self.currQuestionPoints = 0
+        self.totalPoints = 0
+        
+        self.newQuestion()
+                
+    def okClicked(self):
+        
+        if self.correctAnswer.isChecked():
+            self.totalPoints += self.currQuestionPoints
+            self.newQuestion()
+        else:
+            QtGui.QMessageBox.information(self,
+                                "Sorry...",
+                                "Correct answer was " + self.correctAnswer.text()
+                                + "\nYour score is: " + str(self.totalPoints) +
+                                "\nGame will start from beginning...")
+            self.restart()
+            
+        
+if __name__ == "__main__":
+    app = QtGui.QApplication(sys.argv)
+    gm= Game()
+    gm.show()
+    app.setQuitOnLastWindowClosed(True)
+    sys.exit(app.exec_())

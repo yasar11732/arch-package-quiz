@@ -1,0 +1,23 @@
+# Turkish translations for yasar package.
+# Copyright (C) 2011 THE yasar'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the yasar package.
+# Ya≈sar Arabaci <yasar11732@gmail.com>, 2011.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: yasar 11732\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-07-16 06:07+0300\n"
+"PO-Revision-Date: 2011-07-16 06:22+0300\n"
+"Last-Translator: Yasar Arabaci <yasar11732@gmail.com>\n"
+"Language-Team: Turkish\n"
+"Language: tr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ASCII\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: question.py:79
+#, python-format
+msgid "What is %s "
+msgstr ""

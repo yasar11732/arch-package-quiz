@@ -1,0 +1,19 @@
+package quiz is a very simple package knowledge game for arch linux. It is currently
+in pre-alpha stage. Alpha will be released when:
+
+Saving scores,
+difficulties,
+2 different game modes
+
+implemented.
+
+You can find the docs at, umm..., nowhere! Because there is non at the moment.
+
+INSTALLATION:
+
+Install with "python setup.py install"
+
+How To Run:
+
+use this command -> pquiz
+

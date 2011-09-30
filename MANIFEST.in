@@ -1,0 +1,8 @@
+include AUTHORS
+include COPYING
+include README
+include pquiz
+include setup.py
+include MANIFEST.in
+recursive-include translations *
+recursive-include package-quiz *
